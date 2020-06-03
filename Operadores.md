@@ -1,4 +1,5 @@
 # Operandos <a name="id0"></a>
+
 Hay tres tipos:
 
 **Unarios**   -5
@@ -58,9 +59,65 @@ Los **operadores aritméticos en PHP** son los mismos que en las matemáticas:
 
 **Módulo** ** se **eliminarían** primero las **partes decimales** transformándose en (int) **en caso de ser (float)** y luego se haría la operación. El signo (+ o -) del resultado dependerá del dividendo**, por ejemplo: -5 % 3 mostraría -2.
 
+## 4. Operadores de asignación <a name="id4"></a>
+Existen **operadores básicos** y **combinados**:
+
+### 4.1 Operador básico <a name="id4.1"></a>
+
+El **operador básico** de asignación es "=", que actúa como **definidor**, **no** como **igualador**. El valor de una expresión de asignación es el valor que se le ha asignado, esto es: "$x = 3" tiene un valor de 3.
+
+En el **caso** de **arrays**, se asigna un valor a una clave nombrada mediante el operador "=>".
+
+### 4.2 Operador combinado
+
+Los **operadores combinados** permiten usar un valor en una expresión y establecer su nuevo valor como resultado de esa expresión:
+
+```php
+$x = 3;
+$x += 5;
+// $x vale ahora 8
+
+$y = "Hola ";
+$y .= ", ¿Qué tal?";
+// $y vale ahora "Hola, ¿Qué tal?"
+```
+
+Hay una **excepción** a la asignación por valor en PHP, y son los **objetos**, que se asignan por referencia. Los objetos se copian mediante la palabra **clone**.
+
+## 4.3 Asignación por referencia
+
+La **asignación por referencia** significa que las variables apuntan a los **mismos valores**, **sin** hacer ninguna **copia**:
+
+```php
+<?php
+$x = 3;
+$y = &$x;
+print "$x, $y"; // Mostrará 3, 3
+
+$x = 5;
+print "$x, $y"; // Mostrará 5, 5
+```
+
+Las **referencias** actúan como cuando se crea un **acceso directo** o **alias** de un archivo o carpeta en el ordenador.
+
+## 5. Operadores lógicos
+
+| Operador  	| Resultado                                  	|
+|-----------	|--------------------------------------------	|
+| $x and $y 	| true si $x y $y son true                   	|
+| $x or $y  	| true si uno de los dos es true (o los dos) 	|
+| $x xor $y 	| true si sólo uno de los dos es true        	|
+| !$x       	| true si $x no es true                      	|
+| $x && $y  	| true si $x y $y son true                   	|
+
+>NOTA **&&** y **||** tienen preferencia sobre **and** y **or**
+
+Ejemplos:
 
 
-## 4. Operador Ternario <a name="id4"></a>
+
+
+## . Operador Ternario <a name="id4"></a>
 
 ```php
 <?php
