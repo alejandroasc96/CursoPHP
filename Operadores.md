@@ -44,11 +44,10 @@ Los **operadores de comparación** permiten comparar dos valores. Estos valores 
 | $x <= $y  	| Menor o igual que 	| true si $x es menor o igual que $y                   	|
 | $x >= $a  	| Mayor o igual que 	| true si $x es mayor o igual que $y                   	|
 
->```diff - NOTA ``` Debido a la forma en que son interpretados internamente los _floats_, su comparación puede dar resultados inesperados, aunque existen [formas de poder compararlos](http://php.net/manual/es/language.types.float.php#language.types.float.comparison).
-
 ```diff 
 - NOTA 
-``` 
+```
+Debido a la forma en que son interpretados internamente los _floats_, su comparación puede dar resultados inesperados, aunque existen [formas de poder compararlos](http://php.net/manual/es/language.types.float.php#language.types.float.comparison).
 
 ## 3. Operadores aritméticos <a name="id3"></a>
 Los **operadores aritméticos en PHP** son los mismos que en las matemáticas:
