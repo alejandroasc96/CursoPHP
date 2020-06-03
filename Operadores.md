@@ -1,8 +1,3 @@
-<style>
-#colorRed{
-    color:red;
-}
-</style>
 # Operandos <a name="id0"></a>
 Hay tres tipos:
 
@@ -28,7 +23,7 @@ Los **operadores de comparación** permiten comparar dos valores. Estos valores 
 | $x <= $y  	| Menor o igual que 	| true si $x es menor o igual que $y                   	|
 | $x >= $a  	| Mayor o igual que 	| true si $x es mayor o igual que $y                   	|
 
-><strong id="colorRed">NOTA</strong> Si se **compara** un **número** con un **string** o la comparación es entre strings numéricos, cada string se convierte en número y la comparación se realiza numéricamente (esto también se incluye con el uso de switch). Cuando se hacen comparaciones idénticas como === esto no tiene sentido ya que también se comparan los tipos.
+><strong style="color:red;">NOTA</strong> Si se **compara** un **número** con un **string** o la comparación es entre strings numéricos, cada string se convierte en número y la comparación se realiza numéricamente (esto también se incluye con el uso de switch). Cuando se hacen comparaciones idénticas como === esto no tiene sentido ya que también se comparan los tipos.
 
 ## 2. Comparaciones entre varios tipos <a name="id2"></a>
 
@@ -44,7 +39,7 @@ Los **operadores de comparación** permiten comparar dos valores. Estos valores 
 | $x <= $y  	| Menor o igual que 	| true si $x es menor o igual que $y                   	|
 | $x >= $a  	| Mayor o igual que 	| true si $x es mayor o igual que $y                   	|
 
->```diff - NOTA ``` Debido a la forma en que son interpretados internamente los _floats_, su comparación puede dar resultados inesperados, aunque existen [formas de poder compararlos](http://php.net/manual/es/language.types.float.php#language.types.float.comparison).
+><strong style="color:red;">NOTA</strong> Debido a la forma en que son interpretados internamente los _floats_, su comparación puede dar resultados inesperados, aunque existen [formas de poder compararlos](http://php.net/manual/es/language.types.float.php#language.types.float.comparison).
 
 ## 3. Operadores aritméticos <a name="id3"></a>
 Los **operadores aritméticos en PHP** son los mismos que en las matemáticas:
