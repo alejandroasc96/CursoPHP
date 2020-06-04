@@ -1,10 +1,26 @@
+**Índice**   
+1. [ Operadores de comparación](#id1)
+2. [ Comparaciones entre varios tipos](#id2)
+3. [ Operadores aritméticos](#id3)
+4. [ Operadores de asignación](#id4)
+   -  [4.1 Operadores de asignación](#id4.1)
+   - [4.2 Operador combinado](#id4.2)
+5. [Operadores lógicos](#id5)
+6. [Operadores para strings](#id6)
+7. [Operadores para arrays](#id7)
+8. [Operador Ternario](#id8)
+9. [Operador Elvis](#id9)
+10. [Operador Fusión Null](#id10)
+
+
+
 # Operandos <a name="id0"></a>
 
 Hay tres tipos:
 
 **Unarios**   -5
 
-**Binarios** 10 +12
+**Binarios** 10 + 12
 
 **Ternario** true? 'hola' : 'Adios'
 
@@ -68,7 +84,7 @@ El **operador básico** de asignación es "=", que actúa como **definidor**, **
 
 En el **caso** de **arrays**, se asigna un valor a una clave nombrada mediante el operador "=>".
 
-### 4.2 Operador combinado
+### 4.2 Operador combinado <a name="id4.2"></a>
 
 Los **operadores combinados** permiten usar un valor en una expresión y establecer su nuevo valor como resultado de esa expresión:
 
@@ -84,7 +100,7 @@ $y .= ", ¿Qué tal?";
 
 Hay una **excepción** a la asignación por valor en PHP, y son los **objetos**, que se asignan por referencia. Los objetos se copian mediante la palabra **clone**.
 
-## 4.3 Asignación por referencia
+## 4.3 Asignación por referencia <a name="id4.3"></a>
 
 La **asignación por referencia** significa que las variables apuntan a los **mismos valores**, **sin** hacer ninguna **copia**:
 
@@ -100,7 +116,7 @@ print "$x, $y"; // Mostrará 5, 5
 
 Las **referencias** actúan como cuando se crea un **acceso directo** o **alias** de un archivo o carpeta en el ordenador.
 
-## 5. Operadores lógicos
+## 5. Operadores lógicos <a name="id5"></a>
 
 | Operador  	| Resultado                                  	|
 |-----------	|--------------------------------------------	|
@@ -114,10 +130,81 @@ Las **referencias** actúan como cuando se crea un **acceso directo** o **alias*
 
 Ejemplos:
 
+```php
+$x = true;
+$y = false;
+if($x and $y){echo 'entra'}else{echo 'no entra'}; // salida no entra
+if($x or $y){echo 'entra'}else{echo 'no entra'}; // salida entra
+if($x xor $y){echo 'entra'}else{echo 'no entra'}; // salida entra
+if(!$x){echo 'entra'}else{echo 'no entra'}; // salida no entra
+if($x && $y){echo 'entra'}else{echo 'no entra'}; // salida no entra
+if($x || $y){echo 'entra'}else{echo 'no entra'}; // salida entra
+```
 
+## 6. Operadores para strings <a name="id6"></a>
+Existen dos operadores para strings:
 
+ * **Operador de concatenación** '**.**'  concatena los argumentos derecho e izquierdo.
+* **Operador de asignación sobre concatenación** '**.=**', añade el argumento del lado derecho al argumento del lado izquierdo.
 
-## . Operador Ternario <a name="id4"></a>
+*Ejemplos*
+```php
+<?php
+$x = "Hola";
+$y = $x . ", ¿Qué tal?"; // $y = "Hola, ¿Qué tal?"
+
+$x = "Hola ";
+$x .= ", ¿Qué tal?"; // $x = "Hola, ¿Qué tal?"
+```
+## 7. Operadores para arrays <a name="id7"></a>
+
+| Operador  	| Resultado                                                                      	|
+|-----------	|--------------------------------------------------------------------------------	|
+| $x + $y   	| Unión de $x e $y                                                               	|
+| $x == $y  	| true si $x e $y tienen las mismas parejas key => value                         	|
+| $x === $y 	| true si $x e $y tienen mismas parejas key => value, mismo orden y mismos tipos 	|
+| $x != $y  	| true si $x no es igual a $y                                                    	|
+| $x <> $y  	| true si $x no es igual a $y                                                    	|
+| $x !== $y 	| true si $x no es idéntica a $y                                                 	|
+
+El operador **+** devuelve el array derecho (**$y**) añadido al del izquierdo (**$x**). Si hay keys que existen en ambas, se utilizarán las keys del array izquierdo.
+
+*Ejemplos unión*
+```php
+$a = array("x" => "perro", "y" => "gato");
+$b = array("x" => "pato", "y" => "liebre", "z" => "conejo");
+// Unión de $a y $b
+$c = $a + $b;
+echo "Unión de \$a y \$b: \n";
+var_dump($c);
+/*
+* array (size=3)
+  'x' => string 'perro' (length=5)
+  'y' => string 'gato' (length=4)
+  'z' => string 'conejo' (length=6)
+*/
+// Unión de $b y $a
+$c = $b + $a;
+echo "Union de \$b y \$a: \n";
+var_dump($c);
+/*
+* array (size=3)
+  'x' => string 'pato' (length=4)
+  'y' => string 'liebre' (length=6)
+  'z' => string 'conejo' (length=6)
+*/
+```
+*Ejemplo de comparación*
+
+```php
+$x = array("perro", "gato");
+$y = array(1 => "gato", "0" => "perro");
+
+var_dump($x == $y); // bool(true)
+var_dump($x === $y); // bool(false)
+```
+
+## 8. Operador Ternario <a name="id8"></a>
 
 ```php
 <?php
@@ -134,4 +221,38 @@ if(empty($x)) {
 }
 ```
 > Una **forma más reducida del operador ternario** es mediante **?:** . Suponiendo $x ?: $y, devolverá $x si $x es true, y $y si $x es false.
+
+## 9. Operador Elvis <a name="id9"></a>
+
+El operador Elvis tiene un funcionamiento similar al ternario pero en este caso solo tenemos un valor por defecto
+
+*Ejemplo*
+
+```php
+<?php
+$y = 5;
+$x = $y ?: 'No hay valor'// Salida: 5
+
+$y = null;
+$x = $y ?: 'No hay valor'// Salida: No hay valor
+?>
+```
+
+>NOTA con el operador Elvis en ejemplo mencionado si $y no tuviese valor nos saltaría un error para arreglarlo deberíamos escribirlo con el método isset() => isset($y)?:'No hay valor';
+
+## 10. Operador Fusión Null <a name="id10"></a>
+
+Para resolver el problema con el operador Elvis en el caso de que la variables nos tengan valor, se introdujo en la versión php 7 el operador Fusión Null.
+
+*Ejemplo*
+
+```php
+<?php
+$y = 5;
+$x = $y ?? 'No hay valor'// Salida: 5
+
+$y;
+$x = $y ?? 'No hay valor'// Salida: No hay valor
+?>
+```
 
