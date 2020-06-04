@@ -1,1 +1,17 @@
-
+**Índice**   
+1. [ if](#id1)
+2. [ else](#id2)
+3. [ elseif/else if](#id3)
+4. [ while](#id4)
+   -  [do-while](#id4.1)
+5. [for](#id5)
+6. [foreach](#id6)
+7. [break](#id7)
+8. [continue](#id8)
+9. [switch](#id9)
+10. [declare](#id10)
+10. [return](#id10)
+10. [include/include_once](#id10)
+10. [require/require_once](#id10)
+10. [goto](#id10)
+10. [Sintaxis alternativas](#id10)
