@@ -368,6 +368,150 @@ switch($i) {
 * En los cases sólo se permiten **tipos simples**: int, float y string. Los **arrays y objetos** pueden utilizarse si se muestran como un tipo simple.
 * Es posible escribir punto y coma ";" en lugar de dos puntos ":" después de un case.
 
-## 11. declare
+## 11. declare <a name="id11"></a>
 
 **declare** sirve para fijar directivas de ejecución para un bloque de código.
+
+## 12. return <a name="id12"></a>
+_**return**_ devuelve el control del programa al módulo que lo invoca. La ejecución vuelve a la siguiente declaración después del módulo que lo invoca. 
+
+*   Si se usa en una **función**, return hace que la función termine, devolviendo los argumentos que le sigan como valor de la llamada a la función. 
+*   Si se llama **globalmente**, finaliza la ejecución del script actual. 
+*   Si el archivo actual fue incluido o requerido, el control regresa al archivo que llama al _**include**_ o _**require**_.
+*   Si el archivo está incluído con _**include**_, los argumentos del return se devolverán como valor de la llamada _**include**_.
+*   Si return se usa en el **archivo principal del script**, termina la ejecución del script.
+*   También termina la ejecución de una sentencia _**eval()**_.
+
+Es recomendable **no** usar paréntesis después de return. 
+
+### 13. include/include_once
+
+_**include**_ incluye y ejecuta un archivo. 
+
+Los archivos se incluyen en base a la **ruta de acceso dada**, y si no se proporciona ninguna, se utiliza el [include_path](http://php.net/manual/es/ini.core.php#ini.include-path). Si el archivo tampoco se encuentra en el **include_path** se mirará en el **propio directorio** desde donde se hace la llamada, antes de devolver un **mensaje warning**. Es en el tipo de mensaje donde difiere con require, que devuelve un **error fatal**.  
+
+*   Si se define una ruta absoluta (en Linux comenzando por /) o relativa al directorio actual (comenzando con . o ..) el **include_path** será ignorado.
+
+Las variables del archivo del include estarán disponibles en el archivo desde el que se solicita:
+
+```
+<?php
+// archivo1.php
+$color = 'azul';
+// archivo2.php
+echo $color; // Devuelve un Notice: Undefined variable: color
+include 'archivo1.php';
+echo $color; // Devuelve azul
+```
+
+*   Si la inclusión se hace dentro de una **función**, el contenido del archivo es como si estuviera dentro de esa función, por tanto su contenido tendrá el mismo ámbito.
+*   Cuando se incluye un archivo, el intérprete abandona el modo PHP e ingresa al modo HTML al comienzo del archivo incluído, y se reanuda de nuevo al final. Es por ello que cualquier código que tenga que ser interpretado como PHP debe incluir las etiquetas válidas de comienzo  y terminación (**<?php ?>**).
+
+Si están activadas las **envolturas URL include**, se puede incluir un archivo a través de una URL (mediante HTTP u [otro protocolo](http://php.net/manual/es/wrappers.php)). Si el servidor objetivo interpreta el archivo como PHP, las variables se pueden pasar al archivo usando un string de petición como con HTTP GET. El resultado no es lo mismo que en local, pues el archivo se ejecuta en el servidor remoto y el resultado se incluye en el local.
+
+```
+<?php
+include 'http://www.ejemplo.com/archivo.php?var=1';
+$var = 1;
+```
+
+Por **seguridad** es mejor que el archivo remoto se procese en el servidor remoto y se reciba sólo la salida, con [_readfile()_](http://php.net/manual/es/function.readfile.php).
+
+Es posible devolver valores desde los archivos include mediante **return**:
+
+```
+// archivo1.php con return
+<?php
+$var = 'PHP';
+return $bar;
+?>
+// archivo2.php sin return
+<?php
+$var = 'PHP';
+?>
+//archivo3.php
+<?php
+$foo = include 'archivo1.php';
+echo $foo; // devuelve PHP
+
+$bar = include 'archivo2.php';
+echo $bar; // Devuelve 1 porque el include ha sido exitoso, pero no tiene valor return. Si no hubiera funcionado devolvería false y un E_WARNING.
+```
+
+También se pueden incluir archivos PHP en variables con un buffering de salida:
+
+```
+<?php
+$string = get_include_contents('archivo.php');
+
+function get_include_contents($filename) {
+    if(is_file($filename)) {
+        ob_start();
+        include $filename;
+        return ob_get_clean();
+    }
+    return false;
+}
+```
+
+Para incluir archivos automáticamente en scripts ver [auto_preprend_file](http://php.net/manual/es/ini.core.php#ini.auto-prepend-file) y [auto_append_file](http://php.net/manual/es/ini.core.php#ini.auto-append-file) de _php.ini_.
+
+_**include_once**_ incluye el archivo especificado sólo una vez, si se incluye más veces tan sólo devuelve true. Es útil en casos donde el mismo fichero se podría incluir y evaluar más de una vez, para evitar así redefinir funciones o reasignar valores a variables.
+
+### 14. require/require_once
+
+_**require**_ hace lo mismo que _**include**_ pero en caso de fallar devuelve un **error fatal** de nivel **E_COMPILE_ERROR**, por lo que no puede continuar el script. _include_ sólo emite un **E_WARNING** que permite continuar el script.
+
+_**require_once**_ es igual que _**require**_ pero PHP comprobará si el archivo ya ha sido incluído, y si es así no se incluirá otra vez. 
+
+### 15. goto
+
+_**goto**_ se utiliza para saltar a otra sección del script. La **etiqueta de destino** debe estar dentro del mismo fichero y ámbito. 
+
+```
+<?php
+goto x;
+echo 'Hola!';
+
+x:
+echo 'Adios!';  // sólo se imprimirá Adios!
+```
+
+También puede utilizarse en un **loop** en lugar de _**break**_:
+
+```
+<?php
+for($i=0, $j=50; $i<100; $i++) {
+    while($j--) {
+        if($j==17) goto end;
+        }
+    }
+echo "i = $i";
+end:
+echo 'j llegó a 17';
+```
+
+### 16. Sintaxis alternativas
+
+PHP ofrece una **sintaxis alternativa** para _if_, _while_, _for_, _foreach_ y _switch_. Se cambia el corchete de apertura por dos puntos ":" y el corchete de cierre por _**endif**_, _**endwhile**_, _**endfor**_, _**endforeach**_, o _**endswitch**_. 
+
+```
+<?php if ($x == 3): ?>
+X es 3
+<?php endif; ?>
+```
+
+"X es 3" es un bloque HTML que se mostraría sólo si se cumple la condición.
+
+Con **else** y **elseif**:
+
+```
+<?php
+if($x == 3):
+    echo "x igual a 3";
+elseif ($x == 4):
+    echo "x igual a 4";
+else:
+    echo "x no es ni 3 ni 4";
+endif;
+```
